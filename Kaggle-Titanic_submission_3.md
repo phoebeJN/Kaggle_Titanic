@@ -10,7 +10,11 @@ output:
 
 
 ## Score 
-(Top 27% 0.75837)
+Top 27% 
+
+model rf,rf1: 0.75837
+
+model rf2, rf3: 0.77990
 
 ## Table of Contents
 
@@ -972,18 +976,18 @@ importance(model_rf)
 
 ```
 ##                    0        1 MeanDecreaseAccuracy MeanDecreaseGini
-## Pclass     49.986585 79.77638             92.72160        24.851407
-## Sex        70.639881 66.72749             73.44290        50.550930
-## Age        48.312043 57.70171             76.89571        43.157950
-## SibSp      33.678477 13.28244             37.49528        12.166226
-## Parch       7.162329 16.08407             16.31488         7.820346
-## Fare       47.053119 67.54125             83.77629        51.809871
-## Embarked   19.088547 45.99086             47.89467        10.276572
-## Title      85.587100 90.54174             94.63677        74.707188
-## CabinLevel 45.287744 23.11504             55.45778        13.791621
-## AgeRange   21.111163 48.75569             49.75860        19.051326
-## FareRange  27.818939 51.78071             56.49809        18.239514
-## Family     43.516802 36.46142             61.24526        15.941523
+## Pclass     49.263602 80.01202             92.04982        25.224071
+## Sex        70.641317 67.09602             73.84816        50.794694
+## Age        49.573787 55.69392             76.80660        43.229636
+## SibSp      34.890285 13.84419             39.13441        11.931043
+## Parch       6.192113 15.57032             14.66113         7.813195
+## Fare       47.475808 67.50359             83.91295        52.194470
+## Embarked   18.506756 47.75694             49.09331        10.397629
+## Title      86.041588 91.87745             95.61436        74.131223
+## CabinLevel 44.981870 23.45014             54.94746        13.465544
+## AgeRange   21.265361 52.51623             52.95584        19.316903
+## FareRange  28.729199 50.41993             55.78562        18.126025
+## Family     41.942157 39.03073             61.15959        16.081284
 ```
 
 ```r
@@ -994,22 +998,42 @@ varImpPlot(model_rf)
 
 ```r
 model_rf1 <- randomForest(Survived ~ Pclass + Sex + Age + Fare + Embarked + Title + CabinLevel + AgeRange + FareRange + Family, ntree = 5000, data = Titanic.full[1:891, ], importance = TRUE)
+
+model_rf2 <- randomForest(Survived ~ Pclass + Sex + Title, ntree = 5000, data = Titanic.full[1:891, ], importance = TRUE)
+
+model_rf3 <- randomForest(Survived ~ Pclass + Fare + Title, ntree = 5000, data = Titanic.full[1:891, ], importance = TRUE)
 ```
 
 ## Predicting survival on the Titanic {#step7}
 
 ```r
+# rf
 predict <- predict(model_rf, newdata = Titanic.full[892:1309,])
 
 pred.rf <- data.frame(PassengerId = Titanic.full[892:1309,]$PassengerId, Survived = predict)
 
 write.csv(pred.rf, file = "Titanic_randomForest_final1.csv", row.names = F)
 
+# rf1
 predict <- predict(model_rf1, newdata = Titanic.full[892:1309,])
 
 pred.rf <- data.frame(PassengerId = Titanic.full[892:1309,]$PassengerId, Survived = predict)
 
 write.csv(pred.rf, file = "Titanic_randomForest_final2.csv", row.names = F)
+
+# rf2
+predict <- predict(model_rf2, newdata = Titanic.full[892:1309,])
+
+pred.rf <- data.frame(PassengerId = Titanic.full[892:1309,]$PassengerId, Survived = predict)
+
+write.csv(pred.rf, file = "Titanic_randomForest_final3.csv", row.names = F)
+
+# rf3
+predict <- predict(model_rf3, newdata = Titanic.full[892:1309,])
+
+pred.rf <- data.frame(PassengerId = Titanic.full[892:1309,]$PassengerId, Survived = predict)
+
+write.csv(pred.rf, file = "Titanic_randomForest_final4.csv", row.names = F)
 ```
 
 
