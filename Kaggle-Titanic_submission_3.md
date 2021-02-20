@@ -10,7 +10,7 @@ output:
 
 
 ## Score 
-Top 27% 
+Top 25% 
 
 model rf,rf1: 0.75837
 
