@@ -10,7 +10,7 @@ output:
 
 
 # Submission Score 
-#### (**Top 27%**)
+#### (**Top 25%**)
 ![](Kaggle-Titanic_submission_1_files/score.png)
 
 ## Loading relevant packages
